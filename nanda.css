@@ -1,0 +1,235 @@
+/* nanda.css */
+
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #ffecd2, #fcb69f); /* Soft gradient background */
+    color: #333;
+    overflow: hidden; /* Hide overflow for heart animations */
+    position: relative; /* For heart positioning */
+}
+
+/* Main Wrapper for Centering */
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Limit overall width */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Container Styling (Login and Poem) */
+.login-container,
+.poem-container {
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 450px; /* Max width for login/poem boxes */
+    box-sizing: border-box;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Fade Out Effect */
+.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none; /* Disable interactions during fade */
+}
+
+/* Fade In Effect */
+.fade-in {
+    opacity: 0; /* Start hidden */
+    transform: translateY(20px); /* Start slightly below */
+}
+
+.fade-in.active { /* This class would be added by JS after display:block */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Login Container Specifics */
+.login-container h1 {
+    color: #e91e63; /* Pinkish red */
+    margin-bottom: 15px;
+    font-size: 2.2em;
+}
+
+.login-container p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-container input[type="text"] {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    width: calc(100% - 30px); /* Account for padding */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.login-container input[type="text"]:focus {
+    border-color: #e91e63;
+    outline: none;
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+}
+
+.login-container button {
+    background-color: #e91e63;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-container button:hover {
+    background-color: #d81b60;
+    transform: translateY(-2px);
+}
+
+.login-container button:active {
+    transform: translateY(0);
+}
+
+
+/* Poem Container Specifics */
+.poem-container {
+    display: none; /* Hidden by default, shown by JS */
+    max-width: 600px; /* Wider for poem */
+}
+
+.poem-container h2#greetingMessage {
+    color: #e91e63;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.poem-box {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    min-height: 250px; /* Ensure a minimum height */
+    overflow-y: auto; /* Enable scrolling if poem is too long */
+    text-align: left; /* Align poem text left */
+}
+
+.poem-box pre#poem {
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
+    word-wrap: break-word; /* Break long words */
+    font-family: 'Georgia', serif; /* A classic font for poetry */
+    font-size: 1.15em;
+    line-height: 1.6;
+    color: #444;
+    opacity: 0; /* Start invisible for typing effect */
+    transition: opacity 0.1s linear; /* Smooth fade in for each char */
+}
+
+/* Restart Button */
+#restartButton {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+#restartButton:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+#restartButton:active {
+    transform: translateY(0);
+}
+
+/* Heart Animation Styling */
+.heart {
+    position: absolute;
+    bottom: -20px; /* Start below the viewport */
+    font-size: 1.5em; /* Size of the heart */
+    color: #e91e63; /* Pink heart color */
+    pointer-events: none; /* Ensure hearts don't interfere with clicks */
+    opacity: 0;
+    animation: floatUpAndFade 5s forwards ease-out; /* Animation name, duration, fill mode, easing */
+}
+
+@keyframes floatUpAndFade {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg); /* Float up */
+        opacity: 0; /* Fade out */
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .login-container,
+    .poem-container {
+        padding: 25px;
+        border-radius: 10px;
+    }
+
+    .login-container h1 {
+        font-size: 1.8em;
+    }
+
+    .login-container p {
+        font-size: 1em;
+    }
+
+    .login-container input[type="text"],
+    .login-container button {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    .poem-container h2#greetingMessage {
+        font-size: 1.6em;
+    }
+
+    .poem-box {
+        padding: 20px;
+        min-height: 200px;
+    }
+
+    .poem-box pre#poem {
+        font-size: 1em;
+    }
+}
